@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>CLASH ROYALE - ¡BATALLA DE MAGOS!</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- SECCIÓN DE SELECCIÓN DE PERSONAJE -->
+    <section id="seleccionar-mascota">
+        <h1 class="titulo"> ⚔️ Clash Royale ⚔️</h1>
+        <h2 class="subtitulo">Elige tu Mago de Batalla:</h2>
+
+        <!-- TABLA DE ELEMENTOS -->
+        <div class="tabla-elementos">
+            <h3>🔥 Tabla de Elementos Mágicos 🔥</h3>
+            <div class="elementos-grid">
+                <div class="elemento-item victoria">
+                    <span class="emoji">🔥</span>
+                    <span class="vs">VS</span>
+                    <span class="emoji">❄️</span>
+                    <span class="resultado">🔥 GANA</span>
+                </div>
+                <div class="elemento-item victoria">
+                    <span class="emoji">❄️</span>
+                    <span class="vs">VS</span>
+                    <span class="emoji">⚡</span>
+                    <span class="resultado">❄️ GANA</span>
+                </div>
+                <div class="elemento-item victoria">
+                    <span class="emoji">⚡</span>
+                    <span class="vs">VS</span>
+                    <span class="emoji">🔥</span>
+                    <span class="resultado">⚡ GANA</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="contenedorTarjetas" class="tarjetas">
+            <!-- Las tarjetas se generan dinámicamente -->
+        </div>
+
+        <button id="boton-mascota"> 🏟️ ¡A la Arena de Batalla! 🏟️</button>
+        
+        <!-- INSTRUCCIONES DE JUEGO -->
+        <div class="instrucciones-juego">
+            <h3>📋 ¿Cómo Jugar?</h3>
+            <ol>
+                <li>🎭 <strong>Selecciona tu mago</strong> favorito haciendo clic en su carta</li>
+                <li>🗺️ <strong>Explora la arena</strong> usando las teclas WASD o las flechas del teclado</li>
+                <li>👾 <strong>Busca enemigos</strong> en el mapa y toca uno para iniciar batalla</li>
+                <li>⚔️ <strong>Selecciona 5 hechizos</strong> para tu secuencia de ataque</li>
+                <li>🏆 <strong>Gana más rondas</strong> que tu oponente para ser el Maestro Mago</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DEL MAPA -->
+    <section id="ver-mapa">
+        <h1 class="titulo"> 🏟️ Arena de Combate Mágico 🏟️ </h1>
+        <canvas id="mapa"></canvas>
+        
+        <div class="controles-container">
+            <div class="controles-triangulo">
+                <button class="control-btn up" onmouseup="detenerMovimiento()" onmousedown="moverArriba()" ontouchstart="moverArriba()" ontouchend="detenerMovimiento()">
+                    <span>▲</span>
+                    <div class="control-label">W ↑</div>
+                </button>
+                
+                <div class="controles-medio">
+                    <button class="control-btn left" onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()" ontouchstart="moverIzquierda()" ontouchend="detenerMovimiento()">
+                        <span>◄</span>
+                        <div class="control-label">A ←</div>
+                    </button>
+                    
+                    <button class="control-btn right" onmouseup="detenerMovimiento()" onmousedown="moverDerecha()" ontouchstart="moverDerecha()" ontouchend="detenerMovimiento()">
+                        <span>►</span>
+                        <div class="control-label">D →</div>
+                    </button>
+                </div>
+                
+                <button class="control-btn down" onmouseup="detenerMovimiento()" onmousedown="moverAbajo()" ontouchstart="moverAbajo()" ontouchend="detenerMovimiento()">
+                    <span>▼</span>
+                    <div class="control-label">S ↓</div>
+                </button>
+            </div>
+            
+            <div class="instrucciones">
+                <h4>🎮 Controles de Movimiento</h4>
+                <p>🔸 Usa WASD o las flechas del teclado</p>
+                <p>🔸 También puedes usar los botones en pantalla</p>
+                <p>🔸 Mueve tu mago por toda la arena</p>
+                <p>🔸 Busca enemigos (puntos de colores)</p>
+                <p>🔸 Toca a un enemigo para batallar</p>
+                <p>🔸 ¡Demuestra tu poder mágico!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE COMBATE -->
+    <section id="seleccionar-ataque">
+        <h1 class="titulo"> ⚡ Batalla de Hechizos ⚡</h1>
+        <h2 class="subtitulo">Selecciona tu Hechizo de Combate:</h2>
+
+        <!-- RECORDATORIO DE ELEMENTOS -->
+        <div class="recordatorio-elementos">
+            <div class="regla-elemento">
+                <span>🔥</span> <strong>Fuego</strong> derriten ❄️ <strong>Hielo</strong>
+            </div>
+            <div class="regla-elemento">
+                ❄️ <strong>Hielo</strong> congelan ⚡ <strong>Electricidad</strong>
+            </div>
+            <div class="regla-elemento">
+                ⚡ <strong>Electricidad</strong> apagan 🔥 <strong>Fuego</strong>
+            </div>
+        </div>
+
+        <div id="contenedorAtaques" class="tarjetas-ataques">
+            <!-- Los botones de ataque se generan dinámicamente -->
+        </div>
+
+        <div class="contador-ataques">
+            <p>🎯 Selecciona 5 hechizos para tu secuencia de ataque</p>
+            <p id="ataques-restantes">Ataques restantes: 5</p>
+        </div>
+
+        <div id="mensajes">
+            <p id="resultado"> ✨ ¡Prepárate para el duelo mágico! ✨
+            <section id="reiniciar">
+                <button id="boton-reiniciar"> Nueva Batalla Épica</button>
+            </section>
+        </div>
+
+        <div class="ataques">
+            <div class="ataques-jugador">
+                <p class="victorias-label">🏆 Victorias del Jugador</p>
+                <p id="vidas-jugador">0</p>
+                <p id="mascota-jugador">Tu Mago</p>
+                <div id="ataques-del-jugador"></div>
+            </div>
+            <div class="vs-divider">
+                <div class="vs-text">VS</div>
+            </div>
+            <div class="ataques-enemigo">   
+                <p class="victorias-label"> 😨Victorias del Enemigo </p>
+                <p id="vidas-enemigo">0</p>
+                <p id="mascota-enemigo">Mago Enemigo</p>
+                <div id="ataques-del-enemigo"></div>
+            </div>
+        </div>
+    </section>
+    
+    <script src="./js/clash-royale.js"></script>
+</body>
+</html>
